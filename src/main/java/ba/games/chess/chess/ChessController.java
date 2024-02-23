@@ -7,8 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -18,10 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 
-import static java.awt.Color.gray;
 import static javafx.geometry.Pos.CENTER;
-import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
-import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 // GridPane first row: 1 2 3 4 5 6 7 8 it starts with 1 not 0
 public class ChessController {
@@ -94,5 +89,16 @@ public class ChessController {
     public void initialize() {
         Figure.setTabla(tabla);
         initTable();
+    }
+
+    public static String getColor(VBox cell) {
+        ImageView iV = (ImageView) cell.getChildren().get(0);
+        String word = iV.getImage().getUrl();
+        for(int i=word.length() - 1; i>=0; i--) {
+            if(word.charAt(i) == '_') {
+                return word.charAt(i-1) == 'e' ? "White" : "Black";
+            }
+        }
+        return "None";
     }
 }

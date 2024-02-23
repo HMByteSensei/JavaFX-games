@@ -1,5 +1,7 @@
 package figureClasses;
 
+import ba.games.chess.chess.ChessController;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,12 +18,14 @@ import java.util.ArrayList;
 
 public abstract class Figure extends ImageView {
     private static ArrayList<VBox> listOfPlaceholders;
+    private static ArrayList<VBox> listOfEatPlaceholders;
     private VBox figureToMove = null;
     private static GridPane tabla;
     public Figure(String path, VBox cell) {
         cell.getChildren().add(new ImageView(path));
         cell.setOnMouseClicked(event -> canMoveOnClick(event));
         listOfPlaceholders = new ArrayList<>();
+        listOfEatPlaceholders = new ArrayList<>();
     }
     // before program starts set tabla
     public static void setTabla(GridPane t) { tabla = t; }
@@ -32,20 +36,33 @@ public abstract class Figure extends ImageView {
         cell.getChildren().add(placeholder);
         listOfPlaceholders.add(cell);
     }
+    public void drawEatPlaceholder(VBox cell) {
+        cell.getStyleClass().add("eatPozadina");
+        cell.setOnMouseClicked(ev -> eatOnClick(cell));
+        listOfEatPlaceholders.add(cell);
+    }
+
+    public void removeEatPlaceholder() {
+        for(VBox cell : listOfEatPlaceholders) {
+            cell.getStyleClass().removeAll("eatPozadina");
+        }
+        listOfEatPlaceholders.clear();
+    }
+
     public void removePlaceholder() {
         System.out.println(listOfPlaceholders.size());
-        for(VBox cell : listOfPlaceholders) {
+        for (VBox cell : listOfPlaceholders) {
             cell.getChildren().removeIf(node -> node instanceof Circle);
         }
         listOfPlaceholders.clear();
-        figureToMove = null;
+        removeEatPlaceholder();
     }
     public boolean isFree(VBox cell) {
-        return !cell.getChildren().stream().anyMatch(child -> child instanceof Figure);
+        // cell is VBox if there is no Figure at that cell it should be empty
+        return cell.getChildren().isEmpty();
     }
-    public void setFigureToMove(VBox cell) {
-        figureToMove = cell;
-    }
+    // to know from what cell we are moving
+    public void setFigureToMove(VBox cell) {figureToMove = cell;}
     public void moveOnClick(MouseEvent event) {
         Node node = (Node) event.getSource();
         int rowIndex = GridPane.getRowIndex(node.getParent());
@@ -54,10 +71,23 @@ public abstract class Figure extends ImageView {
         ImageView figura = (ImageView) figureToMove.getChildren().get(0);
 
         figureToMove.getChildren().remove(figura);
+        figureToMove.setOnMouseClicked(null);
         removePlaceholder();
         moveToCell.getChildren().add(figura);
         figureToMove = moveToCell;
+        moveToCell.setOnMouseClicked(ev -> canMoveOnClick(ev));
+    }
+    public void eatOnClick(VBox cell) {
+        cell.getChildren().remove(0);
+        figureToMove.setOnMouseClicked(null);
+        removePlaceholder();
+        cell.getChildren().add((ImageView) figureToMove.getChildren().get(0));
+        figureToMove.getChildren().removeAll();
+        figureToMove = cell;
+        figureToMove.setOnMouseClicked(ev -> canMoveOnClick(ev));
     }
     public abstract void canMoveOnClick(MouseEvent event);
-    // public abstract canEat(VBox cell); i onda ako moze pomjeris ga tamo
+    public abstract void canEat(VBox cell);
+    // to force subclasses for this getter
+    public abstract String getColor();
 }
