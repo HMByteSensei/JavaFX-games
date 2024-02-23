@@ -19,7 +19,7 @@ public class ChessApplication extends Application {
         // 815 will be our full window
         final int maxWindowDimensions = 815;
 
-        FXMLLoader fxmlLoader = new FXMLLoader(ChessApplication.class.getResource("fxml/hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(ChessApplication.class.getResource("fxml/mainView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);
         stage.setTitle("Chess");
         stage.setScene(scene);

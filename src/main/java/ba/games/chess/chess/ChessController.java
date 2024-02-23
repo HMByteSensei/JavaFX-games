@@ -21,7 +21,7 @@ import static javafx.geometry.Pos.CENTER;
 // GridPane first row: 1 2 3 4 5 6 7 8 it starts with 1 not 0
 public class ChessController {
     @FXML
-    public GridPane tabla;
+    private GridPane tabla;
 
     public List<BufferedImage> loadImage() {
         // loading the images
@@ -66,21 +66,18 @@ public class ChessController {
         for(int i=0; i<tabla.getRowCount(); i++) {
             for(int j=0; j<tabla.getColumnCount(); j++) {
                 VBox cell = new VBox();
-               // Image image = new Image("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_pawn.png");
                 if((i % 2 != 0 || j % 2 != 0) && !(i % 2 != 0 && j % 2 != 0)) {
                     cell.getStyleClass().add("pozadina");
                 }
+                cell.setAlignment(CENTER);
                 GridPane.setRowIndex(cell, i);
                 GridPane.setColumnIndex(cell, j);
-                cell.setAlignment(CENTER);
                 if(i == 6) {
                     Figure pawn = new Pawn("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_pawn.png", cell, tabla,"White");
                 }
                 if(i == 1) {
                     Figure pawn = new Pawn("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_pawn.png", cell, tabla,"Black");
                 }
-
-                //cell.getChildren().add(chess_figure);
                 tabla.getChildren().add(cell);
             }
         }
@@ -89,6 +86,20 @@ public class ChessController {
     public void initialize() {
         Figure.setTabla(tabla);
         initTable();
+//        for (int i = 0; i < tabla.getRowCount(); i++) {
+//            for (int j = 0; j < tabla.getColumnCount(); j++) {
+//                Node start = tabla.getChildren().get(i * tabla.getColumnCount() + j);
+//                Integer rowIndex = GridPane.getRowIndex(start);
+//                Integer colIndex = GridPane.getColumnIndex(start);
+//
+//                if (rowIndex != null && colIndex != null) {
+//                    System.out.print("(" + rowIndex + "," + colIndex + ") ");
+//                } else {
+//                    System.out.print("(idk) ");
+//                }
+//            }
+//            System.out.println();
+//        }
     }
 
     public static String getColor(VBox cell) {

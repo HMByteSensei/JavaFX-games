@@ -66,7 +66,7 @@ public abstract class Figure extends ImageView {
     public void moveOnClick(MouseEvent event) {
         Node node = (Node) event.getSource();
         int rowIndex = GridPane.getRowIndex(node.getParent());
-        int columnIndex = GridPane.getColumnIndex((node.getParent())) + 1;
+        int columnIndex = GridPane.getColumnIndex((node.getParent()));
         VBox moveToCell = (VBox) tabla.getChildren().get(rowIndex * 8 + columnIndex);
         ImageView figura = (ImageView) figureToMove.getChildren().get(0);
 
@@ -83,8 +83,9 @@ public abstract class Figure extends ImageView {
         removePlaceholder();
         cell.getChildren().add((ImageView) figureToMove.getChildren().get(0));
         figureToMove.getChildren().removeAll();
-        figureToMove = cell;
-        figureToMove.setOnMouseClicked(ev -> canMoveOnClick(ev));
+//        figureToMove.getChildren().remove(0);
+        figureToMove = null;
+        cell.setOnMouseClicked(ev -> canMoveOnClick(ev));
     }
     public abstract void canMoveOnClick(MouseEvent event);
     public abstract void canEat(VBox cell);
