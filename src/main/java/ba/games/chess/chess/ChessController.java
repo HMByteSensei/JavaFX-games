@@ -72,12 +72,36 @@ public class ChessController {
                 cell.setAlignment(CENTER);
                 GridPane.setRowIndex(cell, i);
                 GridPane.setColumnIndex(cell, j);
-                if(i == 6) {
-                    Figure pawn = new Pawn("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_pawn.png", cell, tabla,"White");
+//                if(i == 6) {
+//                    Figure pawn = new Pawn("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_pawn.png", cell, tabla,"White");
+//                }
+//                if(i == 1) {
+//                    Figure pawn = new Pawn("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_pawn.png", cell, tabla,"Black");
+//                }
+//                if(i == 0 && (j == 0 || j == 7)) {
+//                    Figure rook = new Rook("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_rook.png", cell, tabla,"Black");
+//                }
+//                if(i == 7 && (j == 0 || j == 7)) {
+//                    Figure rook = new Rook("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_rook.png", cell, tabla,"White");
+//                }
+//                if(i == 0 && (j == 2 || j == 5)) {
+//                    Figure hunter = new Hunter("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_hunter.png", cell, tabla,"Black");
+//                }
+//                if(i == 7 && (j == 2 || j == 5)) {
+//                    Figure hunter = new Hunter("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_hunter.png", cell, tabla,"White");
+//                }
+                if(i == 0 && (j == 1 || j == 6)) {
+                    Figure knight = new Horse("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_horse.png", cell, tabla,"Black");
                 }
-                if(i == 1) {
-                    Figure pawn = new Pawn("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_pawn.png", cell, tabla,"Black");
+                if(i == 7 && (j == 1 || j == 6)) {
+                    Figure knight = new Horse("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_horse.png", cell, tabla,"White");
                 }
+//                if(i == 0 && j == 3) {
+//                    Figure queen = new Queen("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_queen.png", cell, tabla,"Black");
+//                }
+//                if(i == 7 && j == 3) {
+//                    Figure queen = new Queen("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_queen.png", cell, tabla,"White");
+//                }
                 tabla.getChildren().add(cell);
             }
         }

@@ -33,7 +33,7 @@ public class Pawn extends Figure {
             VBox cell = (VBox) tabla.getChildren().get(8 * rowIndex + columnIndex);
             setFigureToMove(cell);
             canEat(cell);
-            if (color == "White") {
+            if (color.equals("White")) {
                 rowIndex--;
             } else {
                 rowIndex++;
@@ -41,13 +41,13 @@ public class Pawn extends Figure {
             cell = (VBox) tabla.getChildren().get(8 * rowIndex + columnIndex);
             if (isFree(cell)) {
                 drawPlaceholder(cell);
-                if (color == "White" && rowIndex + 1 == 6) {
+                if (color.equals("White") && rowIndex + 1 == 6) {
                     cell = (VBox) tabla.getChildren().get(4 * 8 + columnIndex);
                     if (isFree(cell)) {
                         drawPlaceholder(cell);
                     }
                 }
-                if (color == "Black" && rowIndex - 1 == 1) {
+                if (color.equals("Black") && rowIndex - 1 == 1) {
                     cell = (VBox) tabla.getChildren().get(8 * 3 + columnIndex);
                     if (isFree(cell)) {
                         drawPlaceholder(cell);
@@ -59,7 +59,7 @@ public class Pawn extends Figure {
 
     @Override
     public void canEat(VBox cell) {
-        int nextRowIndex = this.color == "White" ? GridPane.getRowIndex(cell) - 1 : GridPane.getRowIndex(cell) + 1;
+        int nextRowIndex = this.color.equals("White") ? GridPane.getRowIndex(cell) - 1 : GridPane.getRowIndex(cell) + 1;
         int currentColumnIndex = GridPane.getColumnIndex(cell);
         // -1 is placeholder for imposible move
         int plusColIndex = -1;
@@ -73,17 +73,14 @@ public class Pawn extends Figure {
             System.out.println("plusColIndex: " + plusColIndex);
         }
         if(plusColIndex != -1) {
-//            System.out.println("Current col: " + currentColumnIndex);
-//            System.out.println("Cell col: " + (GridPane.getColumnIndex(cell)) + " Cell row: " + GridPane.getRowIndex(cell));
-//            System.out.println("NEXT col: " + plusColIndex + " next row: " + nextRowIndex);
             VBox eat = (VBox) tabla.getChildren().get(nextRowIndex * 8 + plusColIndex);
-            if(!isFree(eat) && ChessController.getColor(eat) != this.getColor()) {
+            if(!isFree(eat) && ChessController.getColor(eat).equals(this.getColor())) {
                 drawEatPlaceholder(eat);
             }
         }
         if(minusColIndex != -1) {
             VBox eat = (VBox) tabla.getChildren().get(nextRowIndex * 8 + minusColIndex);
-            if(!isFree(eat) && ChessController.getColor(eat) != this.getColor()) {
+            if(!isFree(eat) && ChessController.getColor(eat).equals(this.getColor())) {
                 drawEatPlaceholder(eat);
             }
         }

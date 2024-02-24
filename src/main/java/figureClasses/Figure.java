@@ -13,6 +13,9 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
+import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
+import static javafx.scene.control.PopupControl.USE_PREF_SIZE;
+
 // Crni
 // Bijeli
 
@@ -22,6 +25,12 @@ public abstract class Figure extends ImageView {
     private VBox figureToMove = null;
     private static GridPane tabla;
     public Figure(String path, VBox cell) {
+        //----
+//        ImageView iV = new ImageView((path));
+//        iV.setFitHeight(USE_PREF_SIZE);
+//        iV.setFitWidth(USE_PREF_SIZE);
+//        iV.setPreserveRatio(true);
+        //----
         cell.getChildren().add(new ImageView(path));
         cell.setOnMouseClicked(event -> canMoveOnClick(event));
         listOfPlaceholders = new ArrayList<>();
@@ -45,6 +54,7 @@ public abstract class Figure extends ImageView {
     public void removeEatPlaceholder() {
         for(VBox cell : listOfEatPlaceholders) {
             cell.getStyleClass().removeAll("eatPozadina");
+//            cell.setOnMouseClicked(null);
         }
         listOfEatPlaceholders.clear();
     }
@@ -76,6 +86,8 @@ public abstract class Figure extends ImageView {
         moveToCell.getChildren().add(figura);
         figureToMove = moveToCell;
         moveToCell.setOnMouseClicked(ev -> canMoveOnClick(ev));
+
+//        removeEatPlaceholder();
     }
     public void eatOnClick(VBox cell) {
         cell.getChildren().remove(0);

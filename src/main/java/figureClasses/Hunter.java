@@ -6,82 +6,83 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-public class Rook extends Figure {
+public class Hunter extends Figure {
     private String color;
     private GridPane tabla;
     // to know if user clicks on same figure to remove placeholders
     private static boolean clicked = false;
-
-    public Rook(String path, VBox cell, GridPane tabla, String color) {
+    public Hunter(String path, VBox cell, GridPane tabla, String color) {
         super(path, cell);
-        this.tabla = tabla;
         this.color = color;
+        this.tabla = tabla;
     }
     @Override
     public void canMoveOnClick(MouseEvent event) {
-        clicked  = !clicked;
+        clicked = !clicked;
         removePlaceholder();
         if(clicked) {
             int rowIndex = GridPane.getRowIndex((Node) event.getSource());
-            int colIndex = GridPane.getColumnIndex((Node) event.getSource());
-            VBox currentCell = (VBox) tabla.getChildren().get(rowIndex * 8 + colIndex);
+            int columnIndex = GridPane.getColumnIndex((Node) event.getSource());
+            VBox currentCell = (VBox) tabla.getChildren().get(8 * rowIndex + columnIndex);
             setFigureToMove(currentCell);
-//            canEat(currentCell);
-            // Upwords check so -1
+            // up right +1;
             VBox checkCell;
             rowIndex--;
-            while(rowIndex >= 0) {// && colIndex >= 0 && colIndex <= 7) {
-                checkCell = (VBox) tabla.getChildren().get(rowIndex * 8 + colIndex);
+            columnIndex++;
+            while(rowIndex >= 0 && columnIndex <= 7) {// && colIndex >= 0 && colIndex <= 7) {
+                checkCell = (VBox) tabla.getChildren().get(rowIndex * 8 + columnIndex);
                 if(!isFree(checkCell)) {
                     canEat(checkCell);
                     break;
                 }
                 drawPlaceholder(checkCell);
                 rowIndex--;
+                columnIndex++;
             }
-            // Downwords check so +1
-            rowIndex = GridPane.getRowIndex(currentCell);
-            rowIndex++;
-            while(rowIndex <= 7) {
-                checkCell = (VBox) tabla.getChildren().get(rowIndex * 8 + colIndex);
+            // down right
+            rowIndex = GridPane.getRowIndex(currentCell) + 1;
+            columnIndex = GridPane.getColumnIndex(currentCell) + 1;
+            while(rowIndex <= 7 && columnIndex <= 7) {
+                checkCell = (VBox) tabla.getChildren().get(rowIndex * 8 + columnIndex);
                 if(!isFree(checkCell)) {
                     canEat(checkCell);
                     break;
                 }
                 drawPlaceholder(checkCell);
                 rowIndex++;
+                columnIndex++;
             }
-            // Right check +1; reset rowIndex that we have changed
-            rowIndex = GridPane.getRowIndex(currentCell);
-            colIndex++;
-            while(colIndex <= 7) {
-                checkCell = (VBox) tabla.getChildren().get(rowIndex * 8 + colIndex);
+            // Left down
+            rowIndex = GridPane.getRowIndex(currentCell) + 1;
+            columnIndex = GridPane.getColumnIndex(currentCell) - 1;
+            while(rowIndex <= 7 && columnIndex >= 0) {
+                checkCell = (VBox) tabla.getChildren().get(rowIndex * 8 + columnIndex);
                 if(!isFree(checkCell)) {
                     canEat(checkCell);
                     break;
                 }
                 drawPlaceholder(checkCell);
-                colIndex++;
+                rowIndex++;
+                columnIndex--;
             }
-            // Left check -1; reset both variables
-            rowIndex = GridPane.getRowIndex(currentCell);
-            colIndex = GridPane.getColumnIndex(currentCell);
-            colIndex--;
-            while(colIndex >= 0) {
-                checkCell = (VBox) tabla.getChildren().get(rowIndex * 8 + colIndex);
+            // Up left
+            rowIndex = GridPane.getRowIndex(currentCell) - 1;
+            columnIndex = GridPane.getColumnIndex(currentCell) - 1;
+            while(columnIndex >= 0 && rowIndex >= 0) {
+                checkCell = (VBox) tabla.getChildren().get(rowIndex * 8 + columnIndex);
                 if(!isFree(checkCell)) {
                     canEat(checkCell);
                     break;
                 }
                 drawPlaceholder(checkCell);
-                colIndex--;
+                columnIndex--;
+                rowIndex--;
             }
         }
     }
 
     @Override
     public void canEat(VBox cell) {
-        // we call this method only if we figured out that a cell was occupied
         if(!this.getColor().equals(ChessController.getColor(cell))) {
             drawEatPlaceholder(cell);
         }
