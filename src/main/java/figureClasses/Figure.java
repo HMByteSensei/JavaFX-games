@@ -25,7 +25,7 @@ public abstract class Figure extends ImageView {
     private VBox figureToMove = null;
     private static GridPane tabla;
     public Figure(String path, VBox cell) {
-        //----
+        //----for knights
 //        ImageView iV = new ImageView((path));
 //        iV.setFitHeight(USE_PREF_SIZE);
 //        iV.setFitWidth(USE_PREF_SIZE);
@@ -38,6 +38,7 @@ public abstract class Figure extends ImageView {
     }
     // before program starts set tabla
     public static void setTabla(GridPane t) { tabla = t; }
+
     public void drawPlaceholder(VBox cell) {
         Circle placeholder = new Circle(10);
         placeholder.setFill(Color.GRAY);
@@ -54,13 +55,12 @@ public abstract class Figure extends ImageView {
     public void removeEatPlaceholder() {
         for(VBox cell : listOfEatPlaceholders) {
             cell.getStyleClass().removeAll("eatPozadina");
-//            cell.setOnMouseClicked(null);
+//            cell.setOnMouseClicked(null); zato sto koristis rasponsku for petlju koristi norm i probaj ovo
         }
         listOfEatPlaceholders.clear();
     }
 
     public void removePlaceholder() {
-        System.out.println(listOfPlaceholders.size());
         for (VBox cell : listOfPlaceholders) {
             cell.getChildren().removeIf(node -> node instanceof Circle);
         }
@@ -95,8 +95,8 @@ public abstract class Figure extends ImageView {
         removePlaceholder();
         cell.getChildren().add((ImageView) figureToMove.getChildren().get(0));
         figureToMove.getChildren().removeAll();
-//        figureToMove.getChildren().remove(0);
-        figureToMove = null;
+        // this or figureTOMove = null
+        figureToMove = cell;
         cell.setOnMouseClicked(ev -> canMoveOnClick(ev));
     }
     public abstract void canMoveOnClick(MouseEvent event);

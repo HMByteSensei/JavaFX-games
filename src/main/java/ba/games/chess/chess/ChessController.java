@@ -1,115 +1,19 @@
 package ba.games.chess.chess;
 
 import figureClasses.*;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.imageio.ImageIO;
-
-import static javafx.geometry.Pos.CENTER;
-
-// GridPane first row: 1 2 3 4 5 6 7 8 it starts with 1 not 0
 public class ChessController {
     @FXML
     private GridPane tabla;
 
-    public List<BufferedImage> loadImage() {
-        // loading the images
-        List<BufferedImage> image = new ArrayList<>();
-        File folder = new File("src/main/resources/ba/games/chess/chess/png");
-        File[] list_of_files = folder.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(File f) {
-                return f.getName().endsWith("png");
-            }
-        });
-        try {
-            for(var file : list_of_files) {
-                BufferedImage i = ImageIO.read(file);
-                image.add(i);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
-    }
-
-    private Node getCell(final int row, final int coloumn, GridPane grid) {
-        // if we find cell we will put it in a rez
-        Node rez = null;
-        ObservableList<Node> cells = grid.getChildren();
-
-        for(Node cell : cells) {
-            // we need to test if rowIndex and coloumnIndex != null so we will use Integer
-            Integer rowIndex = GridPane.getRowIndex(cell);
-            Integer coloumnIndex = GridPane.getColumnIndex(cell);
-            // System.out.println("RowIndex: " + rowIndex + "    columnIndex: " + coloumnIndex);
-            if(rowIndex != null && coloumnIndex != null && rowIndex == row && coloumnIndex == coloumn) {
-                rez = cell;
-                break;
-            }
-        }
-        return rez;
-    }
-
-    public void initTable() {
-        for(int i=0; i<tabla.getRowCount(); i++) {
-            for(int j=0; j<tabla.getColumnCount(); j++) {
-                VBox cell = new VBox();
-                if((i % 2 != 0 || j % 2 != 0) && !(i % 2 != 0 && j % 2 != 0)) {
-                    cell.getStyleClass().add("pozadina");
-                }
-                cell.setAlignment(CENTER);
-                GridPane.setRowIndex(cell, i);
-                GridPane.setColumnIndex(cell, j);
-//                if(i == 6) {
-//                    Figure pawn = new Pawn("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_pawn.png", cell, tabla,"White");
-//                }
-//                if(i == 1) {
-//                    Figure pawn = new Pawn("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_pawn.png", cell, tabla,"Black");
-//                }
-//                if(i == 0 && (j == 0 || j == 7)) {
-//                    Figure rook = new Rook("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_rook.png", cell, tabla,"Black");
-//                }
-//                if(i == 7 && (j == 0 || j == 7)) {
-//                    Figure rook = new Rook("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_rook.png", cell, tabla,"White");
-//                }
-//                if(i == 0 && (j == 2 || j == 5)) {
-//                    Figure hunter = new Hunter("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_hunter.png", cell, tabla,"Black");
-//                }
-//                if(i == 7 && (j == 2 || j == 5)) {
-//                    Figure hunter = new Hunter("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_hunter.png", cell, tabla,"White");
-//                }
-                if(i == 0 && (j == 1 || j == 6)) {
-                    Figure knight = new Horse("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_horse.png", cell, tabla,"Black");
-                }
-                if(i == 7 && (j == 1 || j == 6)) {
-                    Figure knight = new Horse("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_horse.png", cell, tabla,"White");
-                }
-//                if(i == 0 && j == 3) {
-//                    Figure queen = new Queen("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_queen.png", cell, tabla,"Black");
-//                }
-//                if(i == 7 && j == 3) {
-//                    Figure queen = new Queen("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_queen.png", cell, tabla,"White");
-//                }
-                tabla.getChildren().add(cell);
-            }
-        }
-    }
     @FXML
     public void initialize() {
         Figure.setTabla(tabla);
-        initTable();
+        ChessLogic cL = new ChessLogic(tabla);
+//        initTable();
 //        for (int i = 0; i < tabla.getRowCount(); i++) {
 //            for (int j = 0; j < tabla.getColumnCount(); j++) {
 //                Node start = tabla.getChildren().get(i * tabla.getColumnCount() + j);
@@ -121,6 +25,12 @@ public class ChessController {
 //                } else {
 //                    System.out.print("(idk) ");
 //                }
+//            }
+//            System.out.println();
+//        }
+//        for (int i = 0; i < tabla.getRowCount(); i++) {
+//            for (int j = 0; j < tabla.getColumnCount(); j++) {
+//                System.out.print(i*8+j + " ");
 //            }
 //            System.out.println();
 //        }

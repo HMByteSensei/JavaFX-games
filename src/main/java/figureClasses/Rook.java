@@ -2,6 +2,7 @@ package figureClasses;
 
 import ba.games.chess.chess.ChessController;
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -11,12 +12,16 @@ public class Rook extends Figure {
     private GridPane tabla;
     // to know if user clicks on same figure to remove placeholders
     private static boolean clicked = false;
-
+    private boolean moved = false;
+    private VBox curentlyAtCell;
     public Rook(String path, VBox cell, GridPane tabla, String color) {
         super(path, cell);
         this.tabla = tabla;
         this.color = color;
+        curentlyAtCell = cell;
     }
+    public boolean getMoved() { return moved; }
+    public void setEventAfterCastle(VBox cell) { curentlyAtCell = cell; cell.setOnMouseClicked(ev -> canMoveOnClick(ev));}
     @Override
     public void canMoveOnClick(MouseEvent event) {
         clicked  = !clicked;
@@ -86,7 +91,31 @@ public class Rook extends Figure {
             drawEatPlaceholder(cell);
         }
     }
+    public void moveOnClick(MouseEvent event) {
+        Node node = (Node) event.getSource();
+        int rowIndex = GridPane.getRowIndex(node.getParent());
+        int columnIndex = GridPane.getColumnIndex((node.getParent()));
+        VBox moveToCell = (VBox) tabla.getChildren().get(rowIndex * 8 + columnIndex);
+        ImageView figura = (ImageView) curentlyAtCell.getChildren().get(0);
 
+        curentlyAtCell.getChildren().remove(figura);
+        curentlyAtCell.setOnMouseClicked(null);
+        removePlaceholder();
+        moveToCell.getChildren().add(figura);
+        curentlyAtCell = moveToCell;
+        moveToCell.setOnMouseClicked(ev -> canMoveOnClick(ev));
+        moved = true;
+    }
+    public void eatOnClick(VBox cell) {
+        cell.getChildren().remove(0);
+        curentlyAtCell.setOnMouseClicked(null);
+        removePlaceholder();
+        cell.getChildren().add((ImageView) curentlyAtCell.getChildren().get(0));
+        curentlyAtCell.getChildren().removeAll();
+        curentlyAtCell = cell;
+        cell.setOnMouseClicked(ev -> canMoveOnClick(ev));
+        moved = true;
+    }
     @Override
     public String getColor() {
         return color;

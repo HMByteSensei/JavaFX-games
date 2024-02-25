@@ -42,7 +42,9 @@ public class Queen extends Figure {
             rowIndex = GridPane.getRowIndex(currentCell);
             rowIndex++;
             while (rowIndex <= 7) {
+                System.out.println(rowIndex + "   " + colIndex + " row num: " + tabla.getRowCount() + " col num: " + tabla.getColumnCount());
                 checkCell = (VBox) tabla.getChildren().get(rowIndex * 8 + colIndex);
+                System.out.println("HERE");
                 if (!isFree(checkCell)) {
                     canEat(checkCell);
                     break;
