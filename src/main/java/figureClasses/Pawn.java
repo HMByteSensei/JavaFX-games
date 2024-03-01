@@ -3,6 +3,7 @@ package figureClasses;
 import ba.games.chess.chess.ChessApplication;
 import ba.games.chess.chess.ChessController;
 import ba.games.chess.chess.ChessLogic;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
@@ -26,7 +27,6 @@ public class Pawn extends Figure {
     // to know if user clicks on same figure to remove placeholders
     private static boolean clicked = false;
     private VBox figureToMove;
-
     public Pawn(String path, VBox cell, GridPane tabla, String color) {
         super(path, cell);
         this.color = color;

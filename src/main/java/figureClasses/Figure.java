@@ -12,25 +12,16 @@ import javafx.scene.shape.Circle;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
-
-import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
-import static javafx.scene.control.PopupControl.USE_PREF_SIZE;
-
-// Crni
-// Bijeli
+import java.util.HashMap;
 
 public abstract class Figure extends ImageView {
     private static ArrayList<VBox> listOfPlaceholders;
     private static ArrayList<VBox> listOfEatPlaceholders;
     private VBox figureToMove = null;
     private static GridPane tabla;
+    private HashMap<VBox, EventHandler<? super MouseEvent>> originalClickHandler = new HashMap<>();
+
     public Figure(String path, VBox cell) {
-        //----for knights
-//        ImageView iV = new ImageView((path));
-//        iV.setFitHeight(USE_PREF_SIZE);
-//        iV.setFitWidth(USE_PREF_SIZE);
-//        iV.setPreserveRatio(true);
-        //----
         cell.getChildren().add(new ImageView(path));
         cell.setOnMouseClicked(event -> canMoveOnClick(event));
         listOfPlaceholders = new ArrayList<>();
@@ -47,16 +38,22 @@ public abstract class Figure extends ImageView {
         listOfPlaceholders.add(cell);
     }
     public void drawEatPlaceholder(VBox cell) {
+        saveOriginalClickHandler(cell);
         cell.getStyleClass().add("eatPozadina");
         cell.setOnMouseClicked(ev -> eatOnClick(cell));
         listOfEatPlaceholders.add(cell);
     }
 
+    private void saveOriginalClickHandler(VBox cell) {
+        originalClickHandler.put(cell, cell.getOnMouseClicked());
+    }
     public void removeEatPlaceholder() {
         for(VBox cell : listOfEatPlaceholders) {
             cell.getStyleClass().removeAll("eatPozadina");
-//            cell.setOnMouseClicked(null); zato sto koristis rasponsku for petlju koristi norm i probaj ovo
+//            cell.setOnMouseClicked(null);
+            cell.setOnMouseClicked(originalClickHandler.get(cell));
         }
+        originalClickHandler.clear();
         listOfEatPlaceholders.clear();
     }
 
@@ -78,8 +75,12 @@ public abstract class Figure extends ImageView {
         int rowIndex = GridPane.getRowIndex(node.getParent());
         int columnIndex = GridPane.getColumnIndex((node.getParent()));
         VBox moveToCell = (VBox) tabla.getChildren().get(rowIndex * 8 + columnIndex);
+//        if(listOfEatPlaceholders.contains(moveToCell)) {
+//            System.out.println("At eat on click");
+//            eatOnClick(moveToCell);
+//            return;
+//        }
         ImageView figura = (ImageView) figureToMove.getChildren().get(0);
-
         figureToMove.getChildren().remove(figura);
         figureToMove.setOnMouseClicked(null);
         removePlaceholder();
