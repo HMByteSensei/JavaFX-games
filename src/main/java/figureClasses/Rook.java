@@ -31,7 +31,6 @@ public class Rook extends Figure {
             int colIndex = GridPane.getColumnIndex((Node) event.getSource());
             VBox currentCell = (VBox) tabla.getChildren().get(rowIndex * 8 + colIndex);
             setFigureToMove(currentCell);
-//            canEat(currentCell);
             // Upwords check so -1
             VBox checkCell;
             rowIndex--;

@@ -47,26 +47,26 @@ public class ChessLogic {
     public void initFigures() {
         // I will initialize rook in king class, althou it would be cleaner if I initialize it here
         for(int i=0; i<8; i++) {
-            figure[1][i] = new Pawn("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_pawn.png", (VBox) tabla.getChildren().get(8 + i), tabla,"Black");
+            figure[1][i] = new Pawn(System.getProperty("user.dir") + "\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_pawn.png", (VBox) tabla.getChildren().get(8 + i), tabla,"Black");
             // 48 + i because that is the cell where white figure starts
-            figure[2][i] = new Pawn("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_pawn.png", (VBox) tabla.getChildren().get(48 + i), tabla,"White");
+            figure[2][i] = new Pawn(System.getProperty("user.dir") + "\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_pawn.png", (VBox) tabla.getChildren().get(48 + i), tabla,"White");
         }
         for(int i=1; i<=6; i+=5) {
-            figure[0][i] = new Horse("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_horse.png", (VBox) tabla.getChildren().get(i), tabla, "Black");
+            figure[0][i] = new Horse(System.getProperty("user.dir") + "\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_horse.png", (VBox) tabla.getChildren().get(i), tabla, "Black");
             // 56 + i (because of formula "8*i+j"
-            figure[3][i] = new Horse("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_horse.png", (VBox) tabla.getChildren().get(56 + i), tabla, "White");
+            figure[3][i] = new Horse(System.getProperty("user.dir") + "\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_horse.png", (VBox) tabla.getChildren().get(56 + i), tabla, "White");
         }
         for(int i=2; i<=5; i+=3) {
-            figure[0][i] = new Hunter("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_hunter.png", (VBox) tabla.getChildren().get(i), tabla, "Black");
-            figure[3][i] = new Hunter("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_hunter.png", (VBox) tabla.getChildren().get(56 + i), tabla, "White");
+            figure[0][i] = new Hunter(System.getProperty("user.dir") + "\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_hunter.png", (VBox) tabla.getChildren().get(i), tabla, "Black");
+            figure[3][i] = new Hunter(System.getProperty("user.dir") + "\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_hunter.png", (VBox) tabla.getChildren().get(56 + i), tabla, "White");
         }
-        figure[0][3] = new Queen("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_queen.png", (VBox) tabla.getChildren().get(3), tabla,"Black");
-        figure[3][3] = new Queen("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_queen.png", (VBox) tabla.getChildren().get(59), tabla,"White");
+        figure[0][3] = new Queen(System.getProperty("user.dir") + "\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_queen.png", (VBox) tabla.getChildren().get(3), tabla,"Black");
+        figure[3][3] = new Queen(System.getProperty("user.dir") + "\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_queen.png", (VBox) tabla.getChildren().get(59), tabla,"White");
 
 //        VBox kingCell = (VBox) tabla.getChildren().get(4);
-        figure[0][4] = new King("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_king.png", (VBox) tabla.getChildren().get(4), tabla,"Black");
+        figure[0][4] = new King(System.getProperty("user.dir") + "\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\black_king.png", (VBox) tabla.getChildren().get(4), tabla,"Black");
 //        kingCell = (VBox) tabla.getChildren().get(60);
-        figure[3][4] = new King("C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_king.png", (VBox) tabla.getChildren().get(60), tabla,"White");
+        figure[3][4] = new King(System.getProperty("user.dir") + "\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\white_king.png", (VBox) tabla.getChildren().get(60), tabla,"White");
     }
     public static void evolvePawn(VBox cell, Figure pawn) {
         Stage stage = new Stage();
@@ -100,7 +100,7 @@ public class ChessLogic {
 
     public static void addImageToEvolveView(String rowField, GridPane evolve, Figure pawn, String figura, VBox cell) {
         VBox first = (VBox) evolve.lookup("#" + rowField);
-        String path = "C:\\Users\\nezzr\\IdeaProjects\\chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\" + pawn.getColor() + "_" + figura + ".png";
+        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\" + pawn.getColor() + "_" + figura + ".png";
         ImageView i1 = new ImageView(path);
         first.getChildren().add(i1);
         first.setOnMouseClicked(event -> choseFigure(event,path, cell, pawn, figura));

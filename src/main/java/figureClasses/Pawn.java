@@ -1,23 +1,12 @@
 package figureClasses;
 
-import ba.games.chess.chess.ChessApplication;
 import ba.games.chess.chess.ChessController;
 import ba.games.chess.chess.ChessLogic;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-
-import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
 public class Pawn extends Figure {
     // attribute color to know where is the end of table(if player can upgrade to other figures)

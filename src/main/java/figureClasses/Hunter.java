@@ -29,7 +29,7 @@ public class Hunter extends Figure {
             VBox checkCell;
             rowIndex--;
             columnIndex++;
-            while(rowIndex >= 0 && columnIndex <= 7) {// && colIndex >= 0 && colIndex <= 7) {
+            while(rowIndex >= 0 && columnIndex <= 7) {
                 checkCell = (VBox) tabla.getChildren().get(rowIndex * 8 + columnIndex);
                 if(!isFree(checkCell)) {
                     canEat(checkCell);

@@ -1,15 +1,13 @@
 package figureClasses;
 
-import ba.games.chess.chess.ChessController;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,7 +48,6 @@ public abstract class Figure extends ImageView {
     public void removeEatPlaceholder() {
         for(VBox cell : listOfEatPlaceholders) {
             cell.getStyleClass().removeAll("eatPozadina");
-//            cell.setOnMouseClicked(null);
             cell.setOnMouseClicked(originalClickHandler.get(cell));
         }
         originalClickHandler.clear();
@@ -75,11 +72,6 @@ public abstract class Figure extends ImageView {
         int rowIndex = GridPane.getRowIndex(node.getParent());
         int columnIndex = GridPane.getColumnIndex((node.getParent()));
         VBox moveToCell = (VBox) tabla.getChildren().get(rowIndex * 8 + columnIndex);
-//        if(listOfEatPlaceholders.contains(moveToCell)) {
-//            System.out.println("At eat on click");
-//            eatOnClick(moveToCell);
-//            return;
-//        }
         ImageView figura = (ImageView) figureToMove.getChildren().get(0);
         figureToMove.getChildren().remove(figura);
         figureToMove.setOnMouseClicked(null);
@@ -87,8 +79,6 @@ public abstract class Figure extends ImageView {
         moveToCell.getChildren().add(figura);
         figureToMove = moveToCell;
         moveToCell.setOnMouseClicked(ev -> canMoveOnClick(ev));
-
-//        removeEatPlaceholder();
     }
     public void eatOnClick(VBox cell) {
         cell.getChildren().remove(0);
@@ -96,7 +86,6 @@ public abstract class Figure extends ImageView {
         removePlaceholder();
         cell.getChildren().add((ImageView) figureToMove.getChildren().get(0));
         figureToMove.getChildren().removeAll();
-        // this or figureTOMove = null
         figureToMove = cell;
         cell.setOnMouseClicked(ev -> canMoveOnClick(ev));
     }
