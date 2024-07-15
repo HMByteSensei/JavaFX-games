@@ -26,9 +26,9 @@ public class King extends Figure {
         curentlyAtCell = cell;
         int rowIndex = GridPane.getRowIndex(cell);
         VBox leftCell = (VBox) tabla.getChildren().get(rowIndex * 8);
-        LeftRook = new Rook(System.getProperty("user.dir") + "\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\" + color.toLowerCase() + "_rook.png", leftCell, tabla, color);
+        LeftRook = new Rook(System.getProperty("user.dir") + "\\Chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\" + color.toLowerCase() + "_rook.png", leftCell, tabla, color);
         VBox rightCell = (VBox) tabla.getChildren().get(rowIndex * 8 + 7);
-        RightRook = new Rook(System.getProperty("user.dir") + "\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\" + color.toLowerCase() + "_rook.png", rightCell, tabla, color);
+        RightRook = new Rook(System.getProperty("user.dir") + "\\Chess\\src\\main\\resources\\ba\\games\\chess\\chess\\png\\" + color.toLowerCase() + "_rook.png", rightCell, tabla, color);
     }
     private void testMove(int toMoveRowIndex, int toMoveColIndex){
         VBox cellToMove = (VBox) tabla.getChildren().get(8 * toMoveRowIndex + toMoveColIndex);
