@@ -15,7 +15,7 @@ public class TicTacToe extends Application {
     public static final int MIN_WIDTH = 614;
     public static final int MAX_HEIGHT = 754;
     public static final int MIN_HEIGHT = 564;
-
+    private static Controller controller;
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(TicTacToe.class.getResource("main-view.fxml"));
@@ -25,7 +25,8 @@ public class TicTacToe extends Application {
         stage.setMinHeight(MIN_HEIGHT);
         stage.setMaxWidth(MAX_WIDTH);
         stage.setMaxHeight(MAX_HEIGHT);
-
+        controller = fxmlLoader.getController();
+        controller.setPrimaryStage(stage);
         stage.setScene(scene);
         stage.show();
 
