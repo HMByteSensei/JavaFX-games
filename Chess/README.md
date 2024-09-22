@@ -26,7 +26,6 @@ This chess game allows you to play a standard game of chess against another play
 ## Requirements
 
 - Java Development Kit (JDK) 11 or higher
-- IntelliJ IDEA 2022.3.3 or higher
 
 ## Usage
 
@@ -45,7 +44,7 @@ To run this project, the easiest way is to use IntelliJ IDEA and JDK. Follow the
    ```sh
    git clone https://github.com/HMByteSensei/javaFX-games.git
    cd javaFX-games
-4. **Open the Project in IntelliJ IDEA**
+4. **Open the Project in IntelliJ IDEA or any other IDE of your choice**
  - Open IntelliJ IDEA.
  - Click on `File -> Open...`.
  - Select the project directory you cloned in step 3 and click `OK`.
